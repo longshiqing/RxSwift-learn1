@@ -249,12 +249,14 @@ RxCocoa入门
 ======
 RxCocoa 中主要有四种 Unit:
 -----
-*1、`DRIVER`
+1、`Driver`
+---
 - 不能出错
 - 工作在主线程
 - 共享同一个值
 
-*2、`CONTROLPROPERTY` / `CONTROLEVENT`
+2、`ControlProperty` / `ControlEvent`
+---
 - 不能出错
 - 工作在主线程
 - 共享同一个值
@@ -268,11 +270,13 @@ RxCocoa 中主要有四种 Unit:
          public var rx_tap: ControlEvent<Void>
          }
 ```
-*3、`VARIABLE`
+3、`variable`
+---
 - 不能出错
 - 共享同一个值
 
-*4、`Driver`
+4、`Driver`
+---
 + Driver 也是一个 Observable ，只是它不会抛出异常。
 - **Driver 有以下几种创建操作：**
 - empty
