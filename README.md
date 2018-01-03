@@ -250,8 +250,8 @@ RxCocoa入门
 RxCocoa 中主要有四种 Unit:
 -----
 *1、`DRIVER`
-              -不能出错
-               -工作在主线程
+- 不能出错
+              - 工作在主线程
                -共享同一个值
 
 *2、`CONTROLPROPERTY` / `CONTROLEVENT`
