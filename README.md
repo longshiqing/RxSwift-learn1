@@ -1,4 +1,5 @@
-##1.0 RxSwift-learn1
+#1.0 RxSwift
+
 #创建序列 Observable：
 * `asObservable` 返回一个序列
 * `create` 使用 Swift 闭包的方式创建序列
