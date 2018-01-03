@@ -22,6 +22,34 @@
 * `Variable`：这是一个不太一样的Subject，它实际上等同于包了一层BehaviorSubject，它里面有一个value属性等同于最近接收的一个元素，但是它本身不继承自Observable。需要调用它自带的asObservable()方法进行转化后才能被订阅。
 
 序列变化
+* `map` 就是用你指定的方法去变换每一个值，这里非常类似 Swift 中的 map ，特别是对 SequenceType 的操作，几乎就是一个道理。一个一个的改变里面的值，并返回一个新的 functor 
+* `mapWithIndex` 操作符与takeWhile很相似, takeWhile是返回了true或false, 而mapWithIndex 在返回真假的同时还能进行传进来的值得操作
+* `flatmap` map、flatMap用于把流内容映射成新的内容，但flatMap用于其内容还是流事件
+* `scan` 应用一个 accumulator (累加) 的方法遍历一个序列,最终发射多个最终累加值
+* `reduce` 会在序列结束时才发射最终的累加值。最终只发射一个最终累加值
+* `filter` 根据自身需求过滤掉一些不用的值
+* `distinctUntilChanged` 用于当下一个事件与前一个事件是不同事件的事件才进行处理操作
+* `elementAt` 处理在指定位置的事件 索引从0开始
+* `take` 只处理前几个信号
+* `takeLast` 只处理前几个信号,这里要注意，使用 takeLast 时，序列一定是有序序列，takeLast 需要序列结束时才能知道最后几个是哪几个值。所以 takeLast 会等序列结束才向后发射值。如果你需要舍弃前面的某些值，你需要的是 skip 。
+* `takeWhile` 满足条件才处理 一旦不满足即使后面出现满足的条件也不会发出事件了
+* `takeuntil` 接收事件消息，直到另一个sequence发出事件消息的时候才终止
+* `skip` 忽略前面几次事件
+* `skipWhile` 忽略开始满足条件的,如果碰到不满足条件的，后面的全部输出
+* `skipWhileWithIndex` 满足条件的都被取消，传入的闭包同skipWhile有点区别而已,如果碰到不满足条件的，后面的全部输出
+* `skipUntil` 直到某个sequence发出了事件消息，才开始接收当前sequence发出的事件消息
+* `toArray` 将sequence转换成一个array，并转换成单一事件信号，然后结束
+* `concat` concat会把多个sequence和并为一个sequence，并且当前面一个sequence发出了completed事件，才会开始下一个sequence的事件。
+* `buffer` 在特定的线程，定期定量收集序列发射的值，然后发射这些的值的集合。
+* `window` window 和 buffer 非常类似。唯一的不同就是 window 发射的是序列， buffer 发射一系列值
+* `debounce` debounce 和 throttle 是同一个东西,仅在过了一段指定的时间还没发射数据时才发射一个数据，换句话说就是 debounce 会抑制发射过快的值。注意这一操作需要指定一个线程。
+* `single` 就是抽样操作，按照 sample 中传入的序列发射情况进行抽样
+* `startWith` 在一个序列前插入一个值
+* `combineLatest` 当两个序列中的任何一个发射了数据时，combineLatest 会结合并整理每个序列发射的最近数据项。
+* `zip` zip 和 combineLatest 相似，不同的是每当所有序列都发射一个值时， zip 才会发送一个值。它会等待每一个序列发射值，发射次数由最短序列决定。结合的值都是一一对应的。
+* `merge` 会将多个序列合并成一个序列，序列发射的值按先后顺序合并。要注意的是 merge 操作的是序列，也就是说序列发射序列才可以使用 merge 。
+* `switchLatest` switchLatest 和 merge 有一点相似，都是用来合并序列的。然而这个合并并非真的是合并序列。事实是每当发射一个新的序列时，丢弃上一个发射的序列。
+* `amb` 用来处理发射序列的操作，不同的是， amb 选择先发射值的序列，自此以后都只关注这个先发射序列，抛弃其他所有序列。
 
 
 感激
