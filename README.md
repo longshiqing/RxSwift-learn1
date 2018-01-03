@@ -250,26 +250,28 @@ RxCocoa入门
 RxCocoa 中主要有四种 Unit:
 -----
 *1、`DRIVER`
-         不能出错
-         工作在主线程
-         共享同一个值
+           不能出错
+           工作在主线程
+           共享同一个值
 
 *2、`CONTROLPROPERTY` / `CONTROLEVENT`
-         不能出错
-         工作在主线程
-         共享同一个值
-         比如一个 UITextField 的 rx_text 就是 ControlProperty ：
-         extension UITextField {
+           不能出错
+           工作在主线程
+           共享同一个值
+           比如一个 UITextField 的 rx_text 就是 ControlProperty ：
+           ```
+         extension UITextField {
          public var rx_text: ControlProperty<String>
          }
          而 UIButton 的 rx_tap 就是 ControlEvent ：
          extension UIButton {
          public var rx_tap: ControlEvent<Void>
          }
+         ```
 
 *3、`VARIABLE`
-         不能出错
-         共享同一个值
+           不能出错
+           共享同一个值
 
 *4、`Driver`
     Driver 也是一个 Observable ，只是它不会抛出异常。
