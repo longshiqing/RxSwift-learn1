@@ -27,7 +27,7 @@ RxSwift入门：
 * `Variable`：这是一个不太一样的Subject，它实际上等同于包了一层BehaviorSubject，它里面有一个value属性等同于最近接收的一个元素，但是它本身不继承自Observable。需要调用它自带的asObservable()方法进行转化后才能被订阅。
 
 序列变化
-         
+-----      
 * `map` 就是用你指定的方法去变换每一个值，这里非常类似 Swift 中的 map ，特别是对 SequenceType 的操作，几乎就是一个道理。一个一个的改变里面的值，并返回一个新的 functor 
 * `mapWithIndex` 操作符与takeWhile很相似, takeWhile是返回了true或false, 而mapWithIndex 在返回真假的同时还能进行传进来的值得操作
 * `flatmap` map、flatMap用于把流内容映射成新的内容，但flatMap用于其内容还是流事件
