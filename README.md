@@ -234,6 +234,61 @@ func retryObservable() {
     }
 ```
 
+线程：
+-----
+*当前的线程切换支持 GCD 和 NSOperation 。
+         在线程这部分主要有两个操作符：observeOn 和 subscribeOn ，常用的还是 observeOn 。
+         调用 observeOn 指定接下来的操作在哪个线程。
+         调用 subscribeOn 决定订阅者的操作执行在哪个线程。
+         当然，如果我们没有明确调用这两个操作，后面的操作都是在当前线程执行的。
+* 1、`MainScheduler`  主线程
+* 2、`SerialDispatchQueueScheduler` 串行
+* 3、`ConcurrentDispatchQueueScheduler` 并行 
+
+RxCocoa入门
+======
+RxCocoa 中主要有四种 Unit:
+-----
+*1、`DRIVER`
+         不能出错
+         工作在主线程
+         共享同一个值
+
+*2、`CONTROLPROPERTY` / `CONTROLEVENT`
+         不能出错
+         工作在主线程
+         共享同一个值
+         比如一个 UITextField 的 rx_text 就是 ControlProperty ：
+         extension UITextField {
+         public var rx_text: ControlProperty<String>
+         }
+         而 UIButton 的 rx_tap 就是 ControlEvent ：
+         extension UIButton {
+         public var rx_tap: ControlEvent<Void>
+         }
+
+*3、`VARIABLE`
+         不能出错
+         共享同一个值
+
+*4、`Driver`
+         Driver 也是一个 Observable ，只是它不会抛出异常。
+         Driver 有以下几种创建操作：
+         empty
+         never
+         just
+         deferred
+         of
+         interval
+         timer
+         和 Observable 几乎一样。
+         Driver 的变换操作和 Observable 也是一样的，这里不再赘述。
+         常用的 driver 操作是：
+         public func drive<O : ObserverType where O.E == E>(observer: O) -> Disposable
+         你可以用它代替 bindTo 。
+         Driver 和 Observable 可以互相变换，要注意的只有在 asDriver 时，记得传入一个处理 Observable 发射错误的情况，你需要替换掉该错误。
+         river 是不会发生 Error 的，所以自然不会出现序列死掉的情况。此外还有一点很重要，我们不需要去写 .shareReplay(1) 了
+       
 感谢以下的大牛,排名不分先后
 -----
 * [靛青K](http://t.swift.gg/d/2-rxswift) 
