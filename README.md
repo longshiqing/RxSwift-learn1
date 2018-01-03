@@ -272,22 +272,18 @@ RxCocoa 中主要有四种 Unit:
          共享同一个值
 
 *4、`Driver`
-         Driver 也是一个 Observable ，只是它不会抛出异常。
-         Driver 有以下几种创建操作：
-         empty
-         never
-         just
-         deferred
-         of
-         interval
-         timer
-         和 Observable 几乎一样。
-         Driver 的变换操作和 Observable 也是一样的，这里不再赘述。
-         常用的 driver 操作是：
-         public func drive<O : ObserverType where O.E == E>(observer: O) -> Disposable
-         你可以用它代替 bindTo 。
-         Driver 和 Observable 可以互相变换，要注意的只有在 asDriver 时，记得传入一个处理 Observable 发射错误的情况，你需要替换掉该错误。
-         river 是不会发生 Error 的，所以自然不会出现序列死掉的情况。此外还有一点很重要，我们不需要去写 .shareReplay(1) 了
+    Driver 也是一个 Observable ，只是它不会抛出异常。
+**Driver 有以下几种创建操作：**
+empty
+never
+just
+deferred
+of
+interval
+timer
+和 Observable 几乎一样。 Driver 的变换操作和 Observable 也是一样的，这里不再赘述。常用的 driver 操作是：public func drive<O : ObserverType where O.E == E>(observer: O) -> Disposable你可以用它代替 bindTo 。Driver 和 Observable 可以互相变换，要注意的只有在 asDriver 时，记得传入一个处理 Observable 发射错误的情况，你需要替换掉该错误。 river 是不会发生 Error 的，所以自然不会出现序列死掉的情况。此外还有一点很重要，我们不需要去写 .shareReplay(1) 了
+         
+         
        
 感谢以下的大牛,排名不分先后
 -----
