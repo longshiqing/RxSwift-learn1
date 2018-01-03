@@ -64,9 +64,9 @@ RxSwift入门：
 * `multicast(_:)` 将一个正常的sequence转换成一个connectable sequence，并且通过具体的subject发送出去，比如PublishSubject，或者replaySubject，behaviorSubject等，不同的Subject会有不同的结果(Converts the source Observable sequence into a connectable sequence, and broadcasts its emissions via the specified subject.)
 * `publish()` 将一个普通序列转换成Connectable Observable序列，订阅观察者序列之后并没有发送事件，一直到调用connect()方法，connect()方法将激活可连接的观察者序列（connectable observable），并且连接的观察者序列发送事件给所有的订阅者。所以得到以上结果
          
-         订阅观察者序列之后并没有发送事件，一直到调用connect()方法，connect()方法将激活可连接的观察者序列（connectable observable），并且连接的观察者序列发送事件给所有的订阅者。所以得到以上结果
+         订阅观察者序列之后并没有发送事件，一直到调用connect()方法，connect()方法将激活可连接的观察者序列（connectable observable），并且连接的观察者序列发送事件给所有的订阅者。所以得到以上结果，当序列发送元素之后，你将经常需要确保将来的新的订阅者接受一些或者所有过去的元素。这时候我们就需要replay(_:)和replayAll()这两个操作符。确保所有的订阅者都能够获得相同的观察者序列发送的元素，即使是在观察者序列已经开发发送元素之后开始订阅的。
 
-当序列发送元素之后，你将经常需要确保将来的新的订阅者接受一些或者所有过去的元素。这时候我们就需要replay(_:)和replayAll()这两个操作符。确保所有的订阅者都能够获得相同的观察者序列发送的元素，即使是在观察者序列已经开发发送元素之后开始订阅的。
+
 
 Refcount : 这个是一个可连接序列的操作符。它可以将一个可连接序列变成普通的序列。
 
