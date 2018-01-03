@@ -1,7 +1,8 @@
 RxSwift入门：
+======
 
 创建序列 Observable：
-
+-----
 * `asObservable` 返回一个序列
 * `create` 使用 Swift 闭包的方式创建序列
 * `deferred` 只有在有观察者订阅时，才去创建序列
@@ -19,6 +20,7 @@ RxSwift入门：
 * `do`    主要用于在subscribe中onNext，onError，onCompleted前调用
          
 什么是 `Subject`
+-----
 * `PublishSubject`：可以不需要初始来进行初始化（也就是可以为空），并且它只会向订阅者发送在订阅之后才接收到的元素。
 * `BehaviorSubject`：需要一个初始值来进行初始化，因为比起PublishSubject，它会为订阅者发送订阅前接收到的最后一个元素，当然，新事件也会发送。
 * `ReplaySubject`：初始化的时候要指定一个缓冲区的大小，而它会维持一个指定大小的数组来保存最近的元素，当有订阅者订阅了，它会首先向订阅者发送该缓冲区内的元素。然后当有新的元素加入，也会发送给订阅者。
@@ -57,6 +59,7 @@ RxSwift入门：
 
 
 可连接的观察者序列：
+-----
   可连接的观察者序列（Connectable observables）是观察者序列中特殊的一个类。不管订阅者的数量多少，他们并不会发送任何的元素，一直到你调用观察者序列的connect()方法。记住：对于一些操作符，如果返回 ConnectableObservable<E>而不是Observable<E>，那么就需要执行调用connect()方法
 可连接的序列和一般的序列基本是一样的，不同的就是你可以用可连接序列调整序列发射的实际。只有当你调用 connect 方法时，序列才会发射。比如我们可以在所有订阅者订阅了序列后开始发射。下面的几个例子都是无限执行的，你可以自行调用每个函数感受不同的操作的结果。
 * `replay(_:)` 创建了一个新的观察者序列，根据缓存值的大小，用来记录由源观察者序列最后发送的几个元素。每一次新的观察者进行订阅，它将立马接受到缓冲中的元素（如果缓冲中有内容），而且保持接受最新的元素。就像一个正常的订阅者一样。返回的是可连接的观察者序列（connectable observable）。shareReplay 就相当于将 replay 中的参数设置为无限大，可以解决多个订购者多次发送序列问题
@@ -64,7 +67,7 @@ RxSwift入门：
 * `multicast(_:)` 将一个正常的sequence转换成一个connectable sequence，并且通过具体的subject发送出去，比如PublishSubject，或者replaySubject，behaviorSubject等，不同的Subject会有不同的结果(Converts the source Observable sequence into a connectable sequence, and broadcasts its emissions via the specified subject.)
 * `publish()` 将一个普通序列转换成Connectable Observable序列，订阅观察者序列之后并没有发送事件，一直到调用connect()方法，connect()方法将激活可连接的观察者序列（connectable observable），并且连接的观察者序列发送事件给所有的订阅者。所以得到以上结果
          
-            `订阅观察者序列之后并没有发送事件，一直到调用connect()方法，connect()方法将激活可连接的观察者序列（connectable observable），并且连接的观察者序列发送事件给所有的订阅者。所以得到以上结果，当序列发送元素之后，你将经常需要确保将来的新的订阅者接受一些或者所有过去的元素。这时候我们就需要replay(_:)和replayAll()这两个操作符。确保所有的订阅者都能够获得相同的观察者序列发送的元素，即使是在观察者序列已经开发发送元素之后开始订阅的。`
+            **订阅观察者序列之后并没有发送事件，一直到调用connect()方法，connect()方法将激活可连接的观察者序列（connectable observable），并且连接的观察者序列发送事件给所有的订阅者。所以得到以上结果，当序列发送元素之后，你将经常需要确保将来的新的订阅者接受一些或者所有过去的元素。这时候我们就需要replay(_:)和replayAll()这两个操作符。确保所有的订阅者都能够获得相同的观察者序列发送的元素，即使是在观察者序列已经开发发送元素之后开始订阅的。**
 
 
 
