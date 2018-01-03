@@ -67,20 +67,23 @@ RxSwift入门：
 * `multicast(_:)` 将一个正常的sequence转换成一个connectable sequence，并且通过具体的subject发送出去，比如PublishSubject，或者replaySubject，behaviorSubject等，不同的Subject会有不同的结果(Converts the source Observable sequence into a connectable sequence, and broadcasts its emissions via the specified subject.)
 * `publish()` 将一个普通序列转换成Connectable Observable序列，订阅观察者序列之后并没有发送事件，一直到调用connect()方法，connect()方法将激活可连接的观察者序列（connectable observable），并且连接的观察者序列发送事件给所有的订阅者。所以得到以上结果
          
-            ```订阅观察者序列之后并没有发送事件，一直到调用connect()方法，connect()方法将激活可连接的观察者序列（connectable observable），并且连接的观察者序列发送事件给所有的订阅者。所以得到以上结果，当序列发送元素之后，你将经常需要确保将来的新的订阅者接受一些或者所有过去的元素。这时候我们就需要replay(_:)和replayAll()这两个操作符。确保所有的订阅者都能够获得相同的观察者序列发送的元素，即使是在观察者序列已经开发发送元素之后开始订阅的。```
+            ```
+            订阅观察者序列之后并没有发送事件，一直到调用connect()方法，connect()方法将激活可连接的观察者序列（connectable observable），并且连接的观察者序列发送事件给所有的订阅者。所以得到以上结果，当序列发送元素之后，你将经常需要确保将来的新的订阅者接受一些或者所有过去的元素。这时候我们就需要replay(_:)和replayAll()这两个操作符。确保所有的订阅者都能够获得相同的观察者序列发送的元素，即使是在观察者序列已经开发发送元素之后开始订阅的。```
 
 
 **Refcount : 这个是一个可连接序列的操作符。它可以将一个可连接序列变成普通的序列。**
 
 异常处理：
 -----
-```enum CustomError: Error {
+```
+enum CustomError: Error {
     case myCustom
     case otherCustom
 }
 ```
 **发生错误导致序列不能进行下去**
-```func errorObservable1() {
+```
+func errorObservable1() {
         let disposeBag = DisposeBag()
         Observable<Int>.from([1, 2, 3, -1, 5])
             .map { value -> Int in
@@ -104,7 +107,8 @@ RxSwift入门：
     }
 ```
 **发生错误导致序列不能进行下去,处理最后错误一步**
-```func errorObservable2() {
+```
+func errorObservable2() {
         /*
          当 Observer 收到 Observable 一个错误时，说明该 Observable 不能正常传递值了， Observer 不再对该 Observable 感兴趣，此时 Observer 取消订阅了该 Observable 。Observable 再去传递任何值 Observer 也不知道了
          */
@@ -136,7 +140,8 @@ RxSwift入门：
     }
 ```
 **全部输出，错误的特殊处理输出**
-```func errorObservable3() {
+```
+func errorObservable3() {
         let disposeBag = DisposeBag()
         Observable<Int>.from([1, 2, 3, -1, 5])
             .flatMap { value -> Observable<Int> in
@@ -166,7 +171,8 @@ RxSwift入门：
     }
 ```
 **全部输出，忽略出现错误的值**
-```func errorObservable4() {
+```
+func errorObservable4() {
         /***
          在使用 catchError 时，我们要时刻明确我们 catch 的是哪个 Observable ，并将这个 Observable 替换成了什么 Observable
          ***/
@@ -199,7 +205,8 @@ RxSwift入门：
     }
 ```
 **失败了再尝试，重新订阅一次序列**
-```func retryObservable() {
+```
+func retryObservable() {
         var count = 1
         let funnyLookingSequence = Observable<Int>.create { observer in
             let error = NSError(domain: "Test", code: 0, userInfo: nil)
